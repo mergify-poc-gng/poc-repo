@@ -2,7 +2,6 @@
     - name: default
       merge_conditions: []
       merge_method: merge
-      branch_protection_injection_mode: none
 
   pull_request_rules:
     - name: queue to main

@@ -3,6 +3,12 @@
       merge_conditions:
         - check-success = gate
   pull_request_rules:
+    - name: mergify-auto-approve
+      conditions:
+        - base = main
+      actions:
+        review:
+          type: APPROVE
     - name: queue to main
       conditions:
         - base = main

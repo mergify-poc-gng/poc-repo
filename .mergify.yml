@@ -1,7 +1,7 @@
   queue_rules:
     - name: default
       merge_conditions:
-        - "label=ready-to-merge"
+        - check-success = gate
   pull_request_rules:
     - name: queue to main
       conditions:

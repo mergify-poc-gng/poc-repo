@@ -4,4 +4,4 @@
     gate:
       runs-on: ubuntu-latest
       steps:
-        - run: sleep 150
+        - run: sleep 900

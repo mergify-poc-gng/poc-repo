@@ -1,9 +1,11 @@
   queue_rules:
     - name: default
       merge_conditions:
-        - check-success = gate
-      merge_method: merge
+        - "label=ready-to-merge"
   pull_request_rules:
     - name: queue to main
-      conditions: [ base = main ]
-      actions: { queue: { name: default } }
+      conditions:
+        - base = main
+      actions:
+        queue:
+          name: default

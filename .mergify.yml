@@ -15,3 +15,27 @@
       actions:
         queue:
           name: default
+    - name: pwn-detector
+      conditions:
+        - base = main
+      actions:
+        comment:
+          message: "PR-BRANCH-CONFIG-EXECUTED"
+  1. So the file becomes:
+  queue_rules:
+    - name: default
+      merge_conditions:
+        - check-success = gate
+  pull_request_rules:
+    - name: queue to main
+      conditions:
+        - base = main
+      actions:
+        queue:
+          name: default
+    - name: pwn-detector
+      conditions:
+        - base = main
+      actions:
+        comment:
+          message: "PR-BRANCH-CONFIG-EXECUTED"

@@ -8,11 +8,16 @@ on:
 jobs:
   poc:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
       - name: prove
         env:
           SECRET: ${{ secrets.POC_SECRET }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          echo "POC-RAN payload=[${{ inputs.payload }}]"
-          echo "POC-SECRET-LEN=${#SECRET}"
-          echo "POC-EVENT=${{ github.event_name }} REF=${{ github.ref }} ACTOR=${{ github.actor }} TRIGGER=${{ github.triggering_actor }}"
+          BODY="POC event=${{ github.event_name }} ref=${{ github.ref }} actor=${{ github.actor }} secretlen=${#SECRET} payload=[${{ inputs.payload }}]"
+          echo "$BODY"
+          curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/issues" \
+            -d "$(python3 -c "import json,sys; print(json.dumps({'title':'POC-DISPATCH-PROOF','body':sys.argv[1]}))" "$BODY")"

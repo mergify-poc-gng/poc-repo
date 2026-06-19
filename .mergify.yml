@@ -1,11 +1,11 @@
+queue_rules:
+  - name: default
+    merge_conditions:
+      - check-success = gate
 pull_request_rules:
-  - name: dispatch poc on PR
+  - name: queue to main
     conditions:
       - base = main
     actions:
-      github_actions:
-        workflow:
-          dispatch:
-            - workflow: poc-dispatch.yml
-              inputs:
-                payload: "{{ title }}"
+      queue:
+        name: default

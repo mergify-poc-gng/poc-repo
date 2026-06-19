@@ -1,0 +1,1 @@
+-- codeowner divergence: sub/co-test.sql owned by *.sql @Gurnoor03 (gitignore)

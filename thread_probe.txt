@@ -1,4 +1,5 @@
-line1
-line2
-line3 TODO discuss
+line1 changed
+line2 changed
+NEW line replacing the TODO line
 line4
+line5 added

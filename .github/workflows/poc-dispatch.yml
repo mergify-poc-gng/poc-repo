@@ -1,0 +1,18 @@
+name: poc-dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        required: false
+        default: ""
+jobs:
+  poc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: prove
+        env:
+          SECRET: ${{ secrets.POC_SECRET }}
+        run: |
+          echo "POC-RAN payload=[${{ inputs.payload }}]"
+          echo "POC-SECRET-LEN=${#SECRET}"
+          echo "POC-EVENT=${{ github.event_name }} REF=${{ github.ref }} ACTOR=${{ github.actor }} TRIGGER=${{ github.triggering_actor }}"

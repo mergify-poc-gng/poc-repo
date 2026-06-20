@@ -1,8 +1,11 @@
+queue_rules:
+  - name: default
+    merge_conditions:
+      - check-success = gate
 pull_request_rules:
-  - name: imp-comment-fire
+  - name: queue to main
     conditions:
-      - "label = impfire"
+      - base = main
     actions:
-      comment:
-        message: "IMP-PROBE actor={{ author }} (Mergify bot_account impersonation test)"
-        bot_account: "{{ author }}"
+      queue:
+        name: default

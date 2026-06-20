@@ -1,1 +1,3 @@
-*.yml @Gurnoor03
+# empty-team owner: unsatisfiable code-owner review (control)
+*.sql @mergify-poc-gng/co-team
+/src/ @mergify-poc-gng/co-team

@@ -1,9 +1,11 @@
+queue_rules:
+  - name: default
+    merge_conditions:
+      - check-success = gate
 pull_request_rules:
-  - name: clear blocks on label
+  - name: queue to main
     conditions:
-      - "label = clearblock"
+      - base = main
     actions:
-      dismiss_reviews:
-        approved: false
-        changes_requested: true
-        message: dismissed by rule
+      queue:
+        name: default

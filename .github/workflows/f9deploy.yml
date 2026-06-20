@@ -1,0 +1,17 @@
+name: f9deploy
+on:
+  push:
+    branches: [rc-main]
+permissions:
+  contents: read
+  issues: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - env:
+          DEPLOY_SECRET: ${{ secrets.DEPLOY_SECRET }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: bash app/run.sh

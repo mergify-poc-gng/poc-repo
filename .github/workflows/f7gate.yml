@@ -1,0 +1,26 @@
+name: f7gate
+on:
+  pull_request:
+    branches: [f7main]
+permissions:
+  contents: read
+jobs:
+  security-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: security test (detect backdoor) -> junit
+        run: |
+          mkdir -p reports
+          if grep -rqi BACKDOOR app/ 2>/dev/null; then
+            printf '%s' '<?xml version="1.0"?><testsuites><testsuite name="security" tests="1" failures="1"><testcase classname="tests.security.test_authz" name="test_no_backdoor"><failure message="backdoor detected">forbidden pattern present in app/</failure></testcase></testsuite></testsuites>' > reports/security.xml
+          else
+            printf '%s' '<?xml version="1.0"?><testsuites><testsuite name="security" tests="1" failures="0"><testcase classname="tests.security.test_authz" name="test_no_backdoor"/></testsuite></testsuites>' > reports/security.xml
+          fi
+          echo "=== JUnit report ==="; cat reports/security.xml; echo
+      - name: install mergify cli
+        run: pip install mergify-cli
+      - name: junit-process (REQUIRED GATE - ignores quarantined failures)
+        env:
+          MERGIFY_TOKEN: ${{ secrets.MERGIFY_TOKEN }}
+        run: mergify ci junit-process reports/security.xml -r ${{ github.repository }} -b ${{ github.base_ref }}

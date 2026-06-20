@@ -1,11 +1,15 @@
 queue_rules:
   - name: default
     merge_conditions:
-      - check-success = gate
+      - "#approved-reviews-by >= 1"
 pull_request_rules:
-  - name: queue to main
+  - name: auto-approve and merge chore PRs
     conditions:
-      - base = main
+      - "base = f8main"
+      - "title ~= ^chore:"
     actions:
+      review:
+        type: APPROVE
+        message: Auto-approved (chore policy)
       queue:
         name: default

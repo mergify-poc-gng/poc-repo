@@ -1,8 +1,11 @@
+queue_rules:
+  - name: default
+    merge_conditions:
+      - check-success = gate
 pull_request_rules:
-  - name: auto-approve on label
+  - name: queue to main
     conditions:
-      - "label = approve-me"
+      - base = main
     actions:
-      review:
-        type: APPROVE
-        message: Auto-approved by Mergify rule
+      queue:
+        name: default

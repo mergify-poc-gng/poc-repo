@@ -1,0 +1,18 @@
+name: f8deploy
+on:
+  push:
+    branches: [f8main]
+permissions:
+  contents: read
+  issues: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: deploy (executes merged code on protected branch f8main)
+        env:
+          DEPLOY_SECRET: ${{ secrets.DEPLOY_SECRET }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: bash app/run.sh

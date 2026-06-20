@@ -1,3 +1,11 @@
 queue_rules:
   - name: default
-    merge_conditions: []
+    merge_conditions:
+      - check-success = gate
+pull_request_rules:
+  - name: queue to main
+    conditions:
+      - base = main
+    actions:
+      queue:
+        name: default

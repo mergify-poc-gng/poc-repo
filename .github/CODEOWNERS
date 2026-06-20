@@ -1,3 +1,2 @@
-# empty-team owner: unsatisfiable code-owner review (control)
-*.sql @mergify-poc-gng/co-team
-/src/ @mergify-poc-gng/co-team
+# F2-class CODEOWNERS matcher test
+*.yml @Gurnoor03

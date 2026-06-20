@@ -1,0 +1,25 @@
+name: makepr
+on: workflow_dispatch
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  makepr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: rc-main
+          fetch-depth: 0
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BR=cr-air-${{ github.run_id }}
+          git checkout -b $BR
+          echo "airtight poc ${{ github.run_id }}" > crair.txt
+          git add crair.txt
+          git commit -m "airtight poc"
+          git push origin $BR
+          gh pr create --base rc-main --head $BR --title "F9 airtight bot-author" --body "human reviewers approve + request-changes"

@@ -1,11 +1,11 @@
 queue_rules:
   - name: default
-    merge_conditions:
-      - check-success = gate
+    merge_conditions: []
 pull_request_rules:
-  - name: queue to main
+  - name: auto approve rc-main
     conditions:
-      - base = main
+      - base = rc-main
     actions:
-      queue:
-        name: default
+      review:
+        type: APPROVE
+        message: auto

@@ -1,12 +1,11 @@
 queue_rules:
-  - name: btest
-    batch_size: 2
+  - name: default
     merge_conditions:
-      - "#approved-reviews-by >= 1"
+      - check-success = gate
 pull_request_rules:
-  - name: queue-to-qbase
+  - name: queue to main
     conditions:
-      - base = qbase
+      - base = main
     actions:
       queue:
-        name: btest
+        name: default

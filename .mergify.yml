@@ -1,10 +1,11 @@
 queue_rules:
   - name: default
-    merge_conditions: []
+    merge_conditions:
+      - check-success = gate
 pull_request_rules:
-  - name: auto approve cr2
+  - name: queue to main
     conditions:
-      - base = cr2-main
+      - base = main
     actions:
-      review:
-        type: APPROVE
+      queue:
+        name: default

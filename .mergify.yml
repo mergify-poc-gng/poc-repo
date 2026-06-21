@@ -1,11 +1,11 @@
+queue_rules:
+  - name: default
+    merge_conditions:
+      - check-success = gate
 pull_request_rules:
-  - name: squash merge ta
+  - name: queue to main
     conditions:
-      - base = ta-main
+      - base = main
     actions:
-      merge:
-        method: squash
-        commit_message_template: |
-          {{ title }}
-
-          {{ body }}
+      queue:
+        name: default

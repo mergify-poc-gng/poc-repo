@@ -1,7 +1,11 @@
+queue_rules:
+  - name: default
+    merge_conditions:
+      - check-success = gate
 pull_request_rules:
-  - name: echo release notes
+  - name: queue to main
     conditions:
-      - head = gss-pr
+      - base = main
     actions:
-      comment:
-        message: "Release notes: {{ body | get_section('## NOTES', 'none') }}"
+      queue:
+        name: default

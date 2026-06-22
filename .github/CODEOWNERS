@@ -1,3 +1,2 @@
-# empty-team owner: unsatisfiable code-owner review (control)
-*.sql @mergify-poc-gng/co-team
-/src/ @mergify-poc-gng/co-team
+/sensitive/ @Gurnoor03
+/sensitive/secret.txt @goat63262

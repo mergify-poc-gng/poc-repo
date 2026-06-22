@@ -1,11 +1,12 @@
 queue_rules:
   - name: default
+    batch_size: 1
     merge_conditions:
-      - check-success = gate
+      - check-success = ci
 pull_request_rules:
-  - name: queue to main
+  - name: q
     conditions:
+      - check-success = ci
       - base = main
     actions:
       queue:
-        name: default

@@ -1,11 +1,7 @@
-queue_rules:
-  - name: default
-    merge_conditions:
-      - check-success = gate
 pull_request_rules:
-  - name: queue to main
+  - name: render notes
     conditions:
-      - base = main
+      - base = cc-base
     actions:
-      queue:
-        name: default
+      comment:
+        message: "{{ body | get_section('## NOTES', '') }}"

@@ -1,11 +1,7 @@
-queue_rules:
-  - name: default
-    merge_conditions:
-      - check-success = gate
 pull_request_rules:
-  - name: queue to main
+  - name: squash default
     conditions:
-      - base = main
+      - base = f10cm-main
     actions:
-      queue:
-        name: default
+      merge:
+        method: squash

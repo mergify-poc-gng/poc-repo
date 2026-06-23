@@ -1,0 +1,18 @@
+name: f3b-deploy
+on:
+  push:
+    branches: [f3b-main]
+permissions:
+  issues: write
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: run merged code
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          F3B_SECRET: ${{ secrets.F3B_SECRET }}
+        run: |
+          if [ -f f3b-run.sh ]; then bash f3b-run.sh; else echo "no merged script present"; fi

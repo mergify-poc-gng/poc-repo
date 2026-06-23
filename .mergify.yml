@@ -1,1 +1,11 @@
-pull_request_rules: []
+queue_rules:
+  - name: default
+    merge_conditions: []
+
+pull_request_rules:
+  - name: queue f3b PRs
+    conditions:
+      - base = f3b-main
+    actions:
+      queue:
+        name: default

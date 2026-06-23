@@ -1,0 +1,21 @@
+name: mergify-ci
+on:
+  pull_request:
+    branches: [demo-protected]
+jobs:
+  security-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: write failing security test result
+        run: |
+          cat > results.xml <<'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <testsuites><testsuite name="security" tests="1" failures="1">
+          <testcase classname="tests.security.test_authz" name="test_no_privilege_escalation" time="0.1"><failure message="SECURITY CHECK FAILED">unauthorized change detected</failure></testcase>
+          </testsuite></testsuites>
+          EOF
+      - name: mergify ci junit-process (required security gate)
+        uses: mergifyio/gha-mergify-ci@v22
+        with:
+          token: ${{ secrets.MERGIFY_TOKEN }}
+          report_path: results.xml

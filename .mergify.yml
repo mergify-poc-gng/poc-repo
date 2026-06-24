@@ -4,20 +4,15 @@ queue_rules:
       - "label=ready-to-queue"
     merge_conditions:
       - "check-success=gate-never-exists"
-pull_request_rules:
-  - name: queue-urgent
+priority_rules:
+  - name: urgent-jump
     conditions:
-      - "label=ready-to-queue"
       - "label=urgent"
-    actions:
-      queue:
-        name: default
-        priority: high
-  - name: queue-normal
+    priority: high
+pull_request_rules:
+  - name: queue-on-label
     conditions:
       - "label=ready-to-queue"
-      - "-label=urgent"
     actions:
       queue:
         name: default
-        priority: medium

@@ -4,6 +4,11 @@ queue_rules:
       - "label=ready-to-queue"
     merge_conditions:
       - "check-success=gate-never-exists"
+    priority_rules:
+      - name: urgent-jump
+        conditions:
+          - "label=urgent"
+        priority: high
 pull_request_rules:
   - name: queue-on-label
     conditions:

@@ -9,6 +9,7 @@ priority_rules:
     conditions:
       - "label=urgent"
     priority: high
+    allow_checks_interruption: true
 pull_request_rules:
   - name: queue-on-label
     conditions:

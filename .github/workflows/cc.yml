@@ -1,0 +1,19 @@
+name: ci-comment
+on:
+  pull_request:
+    branches: [cc-base]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          cat > r.xml <<'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <testsuites><testsuite name="s" tests="1" failures="1">
+          <testcase classname="tests.inj" name="CLICK_[PHISHLINK](https://example.com/p)_END" time="0.1"><failure message="visit [MSGLINK](https://example.com/m) now">boom</failure></testcase>
+          </testsuite></testsuites>
+          EOF
+      - uses: mergifyio/gha-mergify-ci@v22
+        with:
+          token: ${{ secrets.MERGIFY_TOKEN }}
+          report_path: r.xml

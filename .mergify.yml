@@ -1,13 +1,1 @@
-queue_rules:
-  - name: default
-    queue_conditions:
-      - "label=ready-to-queue"
-    merge_conditions:
-      - "#changes-requested-reviews-by=0"
-pull_request_rules:
-  - name: queue-on-label
-    conditions:
-      - "label=ready-to-queue"
-    actions:
-      queue:
-        name: default
+pull_request_rules: []

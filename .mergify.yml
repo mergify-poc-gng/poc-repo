@@ -2,8 +2,9 @@ queue_rules:
   - name: default
     queue_conditions:
       - "label=ready-to-queue"
+      - "check-success=ci-gate"
     merge_conditions:
-      - "#approved-reviews-by>=1"
+      - "check-success=gate-never-exists"
 pull_request_rules:
   - name: queue-on-label
     conditions:

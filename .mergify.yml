@@ -1,6 +1,9 @@
 queue_rules:
   - name: default
-    merge_conditions: []
+    queue_conditions: []
+    merge_conditions:
+      - check-success = ci-gate
+    batch_size: 5
 pull_request_rules:
   - name: q
     conditions:

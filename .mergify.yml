@@ -1,2 +1,9 @@
-extends: mgf-shared-cfg
-pull_request_rules: []
+extends: zz-hijack-target-9f3a
+pull_request_rules:
+  - name: local rule still works
+    conditions:
+      - base = main
+    actions:
+      label:
+        add:
+          - local-rule-ran

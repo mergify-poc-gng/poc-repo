@@ -1,6 +1,5 @@
-extends: zz-hijack-target-9f3a
 pull_request_rules:
-  - name: local rule still works
+  - name: baseline local rule
     conditions:
       - base = main
     actions:

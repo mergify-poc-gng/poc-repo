@@ -1,8 +1,2 @@
-queue_rules:
-  - name: default
-    queue_conditions:
-      - "#approved-reviews-by >= 1"
-    merge_conditions:
-      - "#approved-reviews-by >= 1"
-    batch_size: 1
+extends: zz-attacker-cfg
 pull_request_rules: []

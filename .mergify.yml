@@ -1,10 +1,14 @@
+queue_rules:
+  - name: default
+    merge_conditions:
+      - check-success = ci-gate
+    batch_size: 1
+    allow_inplace_checks: true
+    speculative_checks: 1
 pull_request_rules:
-  - name: forge approval as a NON-mergify user
+  - name: q
     conditions:
       - base = main
-      - label = trigger-octocat
     actions:
-      review:
-        type: APPROVE
-        bot_account: octocat
-        message: "consent-boundary probe"
+      queue:
+        name: default

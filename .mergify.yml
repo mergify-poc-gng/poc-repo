@@ -1,8 +1,14 @@
+queue_rules:
+  - name: default
+    merge_conditions:
+      - check-success = ci-gate
+    batch_size: 1
+    allow_inplace_checks: true
+    speculative_checks: 1
 pull_request_rules:
-  - name: baseline local rule
+  - name: q
     conditions:
       - base = main
     actions:
-      label:
-        add:
-          - local-rule-ran
+      queue:
+        name: default

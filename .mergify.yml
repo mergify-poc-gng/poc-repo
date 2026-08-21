@@ -1,2 +1,2 @@
-extends: mgf-shared-cfg
+extends: zz-desync
 pull_request_rules: []
